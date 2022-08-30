@@ -1,0 +1,49 @@
+describe ('HR LEAVE MANAGEMENT APPROVE ENCASHMENT', () =>
+{
+
+    it('HR LEAVE MANAGEMENT APPROVE ENCASHMENT', () =>
+    {
+                cy.visit('https://beta.talenticks.meetcs.com/lauth/login')                                                  //visit URL
+                cy.clearCookies()
+                cy.get(':nth-child(2) > .form-control')
+                  .should('have.attr','name','emailid')
+                  .type('APPS000')                                                                                          //enter data user id field and validate
+                cy.log('User ID field validated')                                                                           //validation msg
+        
+                cy.get(':nth-child(3) > .form-control')
+                  .should('have.attr', 'name','password')
+                  .type('Apps@123')                                                                                         //enter data password field and validate
+                cy.log('Password field validated')                                                                          //validation msg
+        
+                cy.get('#btnLogin')
+                  .should('have.id', 'btnLogin')
+                  .click()                                                                                                  //click on login button and validate
+                cy.log('Login button validated')                                                                            //validation msg
+        
+                cy.wait(2000)
+                
+                cy.xpath('//span[text()=" Leave Management"]')                                                               //Click on leave mgmt menu and validate
+                  .click()
+                cy.log('Leave Management menu button validated')    
+        
+                cy.wait(2000)
+                cy.xpath('//span[text()=" Approve Encashment"]')                                                          //Click on HR Leave report menu and validate
+                  .click()
+                cy.log('Approve Encashment menu button validated')
+
+                cy.xpath('(//*[@id="leaveemp"])/following-sibling::span').click()
+                cy.get('li[id$="-196"]').click()
+
+                cy.xpath('(//*[@id="select2-leavetype-container"])').click()
+                cy.get('li[id$="-2"]').click()
+
+                cy.get('.text-right > #btnSubmit').click().wait(5000)
+                cy.get('.swal2-confirm').click()
+
+
+            //LOGOUT
+                cy.get('.navbar-text > [href="https://beta.talenticks.meetcs.com/lauth/logout"]').click()
+        
+    })
+        
+})
